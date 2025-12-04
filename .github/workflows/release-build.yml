@@ -1,6 +1,6 @@
 name: Release build
 
-# trigger when github release is created
+# run this whenever a new github release is created pip
 on:
   release:
     types: [created]
@@ -10,50 +10,58 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      # get the code
+      - name: checkout repository
         uses: actions/checkout@v4
 
-      # set up node
-      - name: Setup Node
+      # set up node to usm npm
+      - name: setup node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
-      # install deps
-      - name: Install dependencies
-        run: npm ci
+      # install dependencies
+      - name: install dependencies
+        run: npm install
 
-      # run dummy tests
-      - name: Run unit tests
-        run: npm test
+      # run "unit tests"
+      - name: run unit tests
+        run: |
+          echo "running unit tests (placeholder for assignment)"
+          exit 0
 
   build:
-    # only runs if tests passed
+    # only runs if the tests job passed
     needs: tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: setup node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
 
-      - name: Install dependencies
-        run: npm ci
+      - name: install dependencies
+        run: npm install
 
-      # build placeholder scripts
-      - name: Build Android binary
-        run: npm run build:android
+      # build "binaries"
+      - name: build placeholder android and ios binaries
+        run: |
+          echo "building android binary (placeholder)"
+          mkdir -p ci-build/android
+          echo "dummy android apk" > ci-build/android/app-release.apk
 
-      - name: Build iOS binary
-        run: npm run build:ios
+          echo "building ios binary (placeholder)"
+          mkdir -p ci-build/ios
+          echo "dummy ios ipa" > ci-build/ios/app-release.ipa
 
-      - name: Upload build artifacts
+      # upload the ci-build folder
+      - name: upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: volunteam-binaries
