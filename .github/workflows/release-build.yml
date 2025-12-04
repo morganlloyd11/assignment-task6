@@ -10,13 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # get the code from forked repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
       # set up node
       - name: Setup Node
-      uses: actions/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
